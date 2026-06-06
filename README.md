@@ -7,23 +7,29 @@
 ## Install
 
 ```bash
-npm install -g context-lens
+npm install -g @kadema/context-lens
 ```
 
 Or use without installing:
 
 ```bash
-npx context-lens ./my-prompt.json
+npx @kadema/context-lens ./my-prompt.json
 ```
 
 ## Usage
 
 ```bash
-# Analyze a payload and print to terminal
+# Analyze and print to terminal
 context-lens ./payload.json
 
-# Also generate a full HTML report
+# Generate a full HTML report
 context-lens ./payload.json --report
+
+# Optimize your system prompt (rules engine + Groq Llama 3.3 70B)
+context-lens ./payload.json --optimize
+
+# Optimize and generate report
+context-lens ./payload.json --optimize --report
 
 # List all supported models and pricing
 context-lens --providers
@@ -36,6 +42,24 @@ context-lens --providers
 - Format instructions sitting in the wrong role
 - Excessive whitespace and blank lines
 - System prompts dominating over 60% of your total budget
+- Near-duplicate sentences across your prompt
+
+## --optimize flag
+
+Runs your system prompt through two passes:
+
+1. **Rules engine** — free, instant, deterministic. Removes duplicates, compresses verbose phrases, collapses whitespace, strips filler.
+2. **Groq Llama 3.3 70B** — free AI rewrite. Restructures and tightens what the rules can't catch while preserving every instruction and meaning.
+
+Typical savings: **20–50% token reduction** on real-world system prompts.
+
+Requires a free Groq API key. Create a `.env` file in your project:
+
+```
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Get a free key at [console.groq.com](https://console.groq.com).
 
 ## Payload format
 
@@ -58,6 +82,8 @@ Standard Anthropic/OpenAI message format:
 
 **HTML report (`--report`):** Full visual report with efficiency score, role-by-role breakdown, cost comparison across Anthropic / OpenAI / Groq sorted cheapest first, and actionable recommendations.
 
+**Optimized payload (`--optimize`):** Saves a `*-optimized.json` file with the cleaned system prompt ready to drop into your app.
+
 ## Supported providers
 
 | Provider  | Models |
@@ -69,12 +95,13 @@ Standard Anthropic/OpenAI message format:
 ## Use as a library
 
 ```js
-import { analyze } from 'context-lens';
+import { analyze } from '@kadema/context-lens';
 
 const result = analyze(payload);
-console.log(result.totalInputTokens);
-console.log(result.efficiencyScore);
-console.log(result.costs);
+console.log(result.totalInputTokens);  // total tokens in payload
+console.log(result.efficiencyScore);   // 0-100 score
+console.log(result.costs);             // cost breakdown per provider
+console.log(result.allWarnings);       // detected issues
 ```
 
 ## License
