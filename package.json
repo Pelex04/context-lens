@@ -17,6 +17,11 @@
     "debug",
     "cli"
   ],
-  "author": "context-lens",
-  "license": "MIT"
+  "author": "Kadema",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pelex04/context-lens.git"
+  },
+  "homepage": "https://github.com/Pelex04/context-lens"
 }
