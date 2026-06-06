@@ -28,7 +28,10 @@ context-lens ./payload.json --report
 # Optimize your system prompt (rules engine + Groq Llama 3.3 70B)
 context-lens ./payload.json --optimize
 
-# Optimize and generate report
+# Live token feedback — re-analyzes on every file save
+context-lens ./payload.json --watch
+
+# Combine flags
 context-lens ./payload.json --optimize --report
 
 # List all supported models and pricing
@@ -44,12 +47,22 @@ context-lens --providers
 - System prompts dominating over 60% of your total budget
 - Near-duplicate sentences across your prompt
 
+## --watch mode
+
+Edit your payload file and save — context-lens instantly re-analyzes and reprints the breakdown. Shows token deltas so you can see exactly whether each edit made things better or worse.
+
+```bash
+context-lens ./payload.json --watch
+```
+
+Useful when iterating on a system prompt and you want live feedback without running the command manually each time.
+
 ## --optimize flag
 
 Runs your system prompt through two passes:
 
 1. **Rules engine** — free, instant, deterministic. Removes duplicates, compresses verbose phrases, collapses whitespace, strips filler.
-2. **Groq Llama 3.3 70B** — free AI rewrite. Restructures and tightens what the rules can't catch while preserving every instruction and meaning.
+2. **Groq Llama 3.3 70B** — free AI rewrite. Restructures and tightens what rules can't catch while preserving every instruction and meaning.
 
 Typical savings: **20–50% token reduction** on real-world system prompts.
 
@@ -99,10 +112,14 @@ import { analyze } from '@kadema/context-lens';
 
 const result = analyze(payload);
 console.log(result.totalInputTokens);  // total tokens in payload
-console.log(result.efficiencyScore);   // 0-100 score
+console.log(result.efficiencyScore);   // 0–100 score
 console.log(result.costs);             // cost breakdown per provider
 console.log(result.allWarnings);       // detected issues
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) — adding new provider pricing or optimization rules is a great first contribution.
 
 ## License
 
