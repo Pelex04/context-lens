@@ -1,13 +1,22 @@
 {
   "name": "context-lens",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Visualize, debug, and optimize your LLM token usage and costs",
   "main": "src/index.js",
   "bin": {
     "context-lens": "./src/cli.js"
   },
   "type": "module",
-  "keywords": ["llm", "tokens", "openai", "anthropic", "groq", "cost", "debug", "cli"],
+  "keywords": [
+    "llm",
+    "tokens",
+    "openai",
+    "anthropic",
+    "groq",
+    "cost",
+    "debug",
+    "cli"
+  ],
   "author": "context-lens",
   "license": "MIT"
 }
