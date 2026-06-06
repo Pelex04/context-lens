@@ -421,7 +421,7 @@ export function generateReport(result, originalPayload) {
 
 <div class="footer">
   <span>context-lens — open source token debugger</span>
-  <span>github.com/your-handle/context-lens</span>
+  <span>github.com/Pelex04/context-lens</span>
 </div>
 
 </body>
