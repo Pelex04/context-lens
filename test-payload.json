@@ -1,0 +1,55 @@
+{
+  "system": "You are a helpful assistant. You are a financial advisor assistant. You are a helpful assistant that helps users manage their finances. Please respond in JSON format whenever possible. You are a helpful assistant.\n\n\n\nYou have access to the user's transaction history and financial data. Always be helpful, friendly, and professional. Remember to never share sensitive financial information. You are a helpful assistant that helps users manage their finances. Always respond in a clear and concise manner.\n\nThe user's currency is MWK (Malawian Kwacha). The current exchange rate is 1 USD = 1750 MWK. Always display amounts in MWK.\n\nYou can help with: budgeting, expense tracking, savings goals, investment advice, financial health scores, transaction categorization, bill reminders, and general financial questions.",
+
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi, can you analyze my spending this month and tell me where I can save money? My salary is MWK 450,000 and I feel like I'm overspending on food."
+    },
+    {
+      "role": "assistant",
+      "content": "I'd be happy to analyze your spending! Let me look at your transaction data for this month. Based on what you've shared, your MWK 450,000 salary gives us a good baseline. I'll need to pull your recent transactions to give you specific recommendations."
+    },
+    {
+      "role": "user",
+      "content": "Here are my transactions: Shoprite MWK 45,000, Airtel MWK 12,000, Electricity MWK 8,500, PTC bus MWK 3,200, Nandos MWK 18,000, Shoprite again MWK 23,000, KFC MWK 15,000, Chipiku MWK 9,800, rent MWK 120,000. What do you think?"
+    }
+  ],
+
+  "tools": [
+    {
+      "name": "get_transactions",
+      "description": "Retrieve the user's transaction history for a specified date range. Returns a list of transactions with merchant name, amount, date, and auto-categorized category. Can filter by category, date range, or minimum/maximum amount.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "start_date": { "type": "string" },
+          "end_date": { "type": "string" },
+          "category": { "type": "string" }
+        }
+      }
+    },
+    {
+      "name": "get_financial_health_score",
+      "description": "Calculate and return the user's current financial health score based on their income, expenses, savings rate, debt-to-income ratio, and emergency fund status. Returns a score from 0-100 with breakdown by category.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "user_id": { "type": "string" }
+        }
+      }
+    },
+    {
+      "name": "create_budget",
+      "description": "Create or update a budget category for the user with a specified monthly limit.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "category": { "type": "string" },
+          "limit": { "type": "number" },
+          "currency": { "type": "string" }
+        }
+      }
+    }
+  ]
+}
