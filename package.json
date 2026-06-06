@@ -1,5 +1,5 @@
 {
-  "name": "context-lens",
+  "name": "@kadema/context-lens",
   "version": "1.0.3",
   "description": "Visualize, debug, and optimize your LLM token usage and costs",
   "main": "src/index.js",
